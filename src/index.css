@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/*
+ * Explicit source globs. Tailwind v4's automatic detection walks up from this
+ * file looking for a project root, which is unreliable here (no git repo), and
+ * silently produced a stylesheet with no utilities in it. Declaring the sources
+ * makes class generation deterministic.
+ */
+@source "../index.html";
+@source "./**/*.{js,jsx}";
+
+@theme {
+  /* Brand greens */
+  --color-leaf-50: #EFF6EF;
+  --color-leaf-100: #DCEBDD;
+  --color-leaf-200: #BCD8BE;
+  --color-leaf-400: #4C8850;
+  --color-leaf-500: #3A703D;
+  --color-leaf-600: #2E5C31;
+  --color-leaf-700: #1F4022;
+  --color-leaf-900: #0E1B10;
+
+  /* Harvest amber */
+  --color-harvest-50: #FDF3E7;
+  --color-harvest-100: #FAE4C9;
+  --color-harvest-400: #EE9B3F;
+  --color-harvest-500: #E67E22;
+  --color-harvest-600: #C2661A;
+
+  /* Neutrals */
+  --color-bone: #F6F5F2;
+  --color-clay: #8A8178;
+  --color-ink: #16181A;
+
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Fraunces", "New York", "Iowan Old Style", Georgia, serif;
+
+  --shadow-card: 0 1px 2px rgb(16 24 16 / 0.04), 0 8px 24px -8px rgb(16 24 16 / 0.10);
+  --shadow-lift: 0 2px 4px rgb(16 24 16 / 0.05), 0 18px 40px -12px rgb(16 24 16 / 0.18);
+  --shadow-device: 0 50px 100px -20px rgb(16 24 16 / 0.25), 0 30px 60px -30px rgb(16 24 16 / 0.3);
+  --shadow-leaf: 0 8px 24px -8px rgb(46 92 49 / 0.55);
+
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+    overscroll-behavior-y: none;
+  }
+
+  ::selection {
+    background: var(--color-leaf-100);
+    color: var(--color-leaf-700);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-leaf-500);
+    outline-offset: 3px;
+  }
+
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Display type: large, tight, editorial. */
+@utility display-xl {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 2.6rem;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+@utility display-lg {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+@utility display-md {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 1.375rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+@utility eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Tabular numerals keep prices and weights from jittering. */
+@utility numeric {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.85); opacity: 0.7; }
+  70% { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}

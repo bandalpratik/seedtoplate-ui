@@ -1,0 +1,16 @@
+export const ROUTES = {
+  feed: '/',
+  crop: (batchId = ':batchId') => `/crops/${batchId}`,
+  reserve: (batchId = ':batchId') => `/crops/${batchId}/reserve`,
+  dashboard: '/harvests',
+  checkout: (reservationId = ':reservationId') => `/checkout/${reservationId}`,
+  paymentReturn: (reservationId = ':reservationId') => `/checkout/${reservationId}/return`,
+  howWePrice: '/how-we-price',
+  signIn: '/sign-in',
+  admin: '/admin',
+  adminAddBatch: '/admin/batches/new',
+  adminBatch: (batchId = ':batchId') => `/admin/batches/${batchId}`,
+  adminRelease: (batchId = ':batchId') => `/admin/batches/${batchId}/release`,
+  adminOrders: '/admin/orders',
+  adminManifest: '/admin/manifest',
+};
