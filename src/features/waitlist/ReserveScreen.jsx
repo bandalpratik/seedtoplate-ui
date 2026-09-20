@@ -29,7 +29,7 @@ import {
 import QuantitySlider from './QuantitySlider';
 
 const PICKUP_HINT = {
-  PUNE_OFFICE: 'Monday morning, at the office',
+  PUNE_OFFICE: 'Wednesday & Thursday morning, at Viman Nagar',
   JUINAGAR_RESIDENCE: 'Sunday evening, at your door',
 };
 
@@ -220,7 +220,7 @@ export default function ReserveScreen() {
 
       <div className="sticky bottom-0 -mx-5 mt-8 border-t border-black/[0.04] bg-white/85 px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-4 backdrop-blur-xl">
         <Button fullWidth size="lg" loading={mutation.isPending} onClick={() => mutation.mutate()}>
-          {hasFixedPrice ? `Reserve ${formatKg(kg)} at ${formatCurrency(batch.finalRetailPricePerKg)}/kg` : `Reserve ${formatKg(kg)}`}
+          {hasFixedPrice ? `Buy ${formatKg(kg)} at ${formatCurrency(batch.finalRetailPricePerKg)}/kg` : `Reserve ${formatKg(kg)}`}
         </Button>
         <p className="mt-2.5 text-center text-[11px] text-gray-400">
           {hasFixedPrice

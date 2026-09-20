@@ -198,7 +198,7 @@ function CropCard({ batch, index }) {
             disabled={soldOut}
             onClick={() => navigate(ROUTES.reserve(batch.id))}
           >
-            {soldOut ? 'Fully reserved' : hasFixedPrice ? 'Reserve ready stock' : 'Reserve your share'}
+            {soldOut ? 'Fully reserved' : hasFixedPrice ? 'Buy ready stock' : 'Reserve your share'}
             {!soldOut && <ArrowRight size={16} strokeWidth={2.2} />}
           </Button>
 

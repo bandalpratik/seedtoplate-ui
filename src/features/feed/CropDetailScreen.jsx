@@ -208,7 +208,7 @@ export default function CropDetailScreen() {
 
         <Reveal className="mt-12">
           <Button fullWidth size="lg" onClick={() => navigate(ROUTES.reserve(data.batchId))}>
-            {hasFixedPrice ? 'Reserve ready stock' : 'Reserve your share'}
+            {hasFixedPrice ? 'Buy this stock' : 'Reserve your share'}
           </Button>
           <p className="mt-3 text-center text-[11px] text-gray-400">
             {hasFixedPrice

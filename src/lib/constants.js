@@ -157,7 +157,7 @@ export const PICKUP_LOCATION = {
 };
 
 export const PICKUP_LOCATION_LABEL = {
-  PUNE_OFFICE: 'Pune Office',
+  PUNE_OFFICE: 'Viman Nagar, Pune',
   JUINAGAR_RESIDENCE: 'Juinagar',
 };
 
