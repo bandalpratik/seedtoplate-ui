@@ -34,7 +34,7 @@ export default function AppShell() {
         )}
       >
         <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-white sm:rounded-[38px]">
-          <main className="no-scrollbar relative flex-1 overflow-y-auto overflow-x-hidden">
+          <main className="no-scrollbar relative flex-1 overflow-y-auto overflow-x-hidden pb-28">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={location.pathname}
@@ -55,7 +55,7 @@ export default function AppShell() {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 80, opacity: 0 }}
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className="pointer-events-none absolute inset-x-0 bottom-0 z-50 flex justify-center pb-[max(1rem,env(safe-area-inset-bottom))]"
+                className="pointer-events-none absolute inset-x-0 bottom-3 z-50 flex justify-center pb-[max(1rem,env(safe-area-inset-bottom))]"
               >
                 <div className="pointer-events-auto flex items-center gap-1 rounded-full border border-black/[0.06] bg-white/75 p-1.5 shadow-lift backdrop-blur-2xl">
                   {TABS.map(({ to, label, icon: Icon, end }) => (
