@@ -23,12 +23,12 @@ export default function AppShell() {
   const showTabs = !CHROMELESS.some((pattern) => pattern.test(location.pathname));
 
   return (
-    <div className="flex min-h-[100dvh] items-center justify-center bg-bone sm:bg-[radial-gradient(120%_120%_at_50%_0%,#FFFFFF_0%,#F2F1EC_55%,#E8E7E1_100%)] sm:p-8">
+    <div className="flex h-[100dvh] items-center justify-center bg-bone sm:bg-[radial-gradient(120%_120%_at_50%_0%,#FFFFFF_0%,#F2F1EC_55%,#E8E7E1_100%)] sm:p-8">
       {/* Device frame: a real bezel on desktop, edge-to-edge on a phone. */}
       <div
         className={cx(
           'relative flex w-full flex-col overflow-hidden bg-white',
-          'min-h-[100dvh] sm:min-h-0 sm:h-[860px] sm:max-h-[90dvh] sm:max-w-[400px]',
+          'h-[100dvh] sm:min-h-0 sm:h-[860px] sm:max-h-[90dvh] sm:max-w-[400px]',
           'sm:rounded-[48px] sm:p-[10px] sm:shadow-device sm:ring-1 sm:ring-black/[0.06]',
           'sm:bg-gradient-to-b sm:from-[#1c1c1e] sm:to-[#0b0b0c]',
         )}
