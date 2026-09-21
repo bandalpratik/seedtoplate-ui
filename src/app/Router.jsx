@@ -43,7 +43,9 @@ const router = createBrowserRouter([
       { path: ROUTES.reserve(), element: load(<ReserveScreen />, { guarded: true }) },
       { path: ROUTES.dashboard, element: load(<DashboardScreen />, { guarded: true }) },
       { path: ROUTES.checkout(), element: load(<CheckoutScreen />, { guarded: true }) },
+      // Support both callback styles: ?orderId=... and /:orderId in the path. Both render the same screen.
       { path: ROUTES.paymentReturn(), element: load(<PaymentReturnScreen />, { guarded: true }) },
+      { path: ROUTES.paymentReturn() + '/:orderId', element: load(<PaymentReturnScreen />, { guarded: true }) },
 
       { path: ROUTES.admin, element: load(<AdminHomeScreen />, { adminOnly: true }) },
       { path: ROUTES.adminAddBatch, element: load(<AddBatchScreen />, { adminOnly: true }) },

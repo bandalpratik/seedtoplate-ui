@@ -42,11 +42,13 @@ function SuccessMark() {
  * trusts the redirect itself.
  */
 export default function PaymentReturnScreen() {
-  const { reservationId } = useParams();
+  const params = useParams();
+  const { reservationId } = params;
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const orderId = searchParams.get('orderId');
+  // Accept orderId either as a query param (?orderId=) or as a path segment (/return/:orderId)
+  const orderId = searchParams.get('orderId') || params.orderId;
 
   const [startedAt] = useState(() => Date.now());
   const [timedOut, setTimedOut] = useState(false);

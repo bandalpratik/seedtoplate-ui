@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { motion } from 'motion/react';
 import { CheckCircle2, Clock, ShieldCheck } from 'lucide-react';
 import { getReservation } from '../../api/reservations';
-import { createPaymentIntent } from '../../api/payments';
+import { createCheckoutOrder } from '../../api/payments';
 import { PICKUP_LOCATION_LABEL, RESERVATION_STATUS } from '../../lib/constants';
 import { formatCurrency, formatDate, formatKg } from '../../lib/format';
 import { useCountdown } from '../../lib/useCountdown';
@@ -58,10 +58,38 @@ export default function CheckoutScreen() {
 
   const pay = useMutation({
     mutationFn: () =>
-      createPaymentIntent({ reservationId, returnBaseUrl: window.location.origin }),
-    onSuccess: (order) => {
-      if (order?.paymentLink) window.location.assign(order.paymentLink);
-      else toast.error('Payment link unavailable. Please try again.');
+      createCheckoutOrder({ reservationId, returnBaseUrl: window.location.origin }),
+    onSuccess: async (resp) => {
+      // resp contains { paymentIntentId, reservationId, amount, orderId, keyId }
+      const { orderId, paymentIntentId, amount, keyId } = resp;
+
+      // Load Razorpay Checkout script dynamically
+      await new Promise((resolve, reject) => {
+        if (window.Razorpay) return resolve();
+        const s = document.createElement('script');
+        s.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+
+      const options = {
+        key: keyId,
+        amount: Math.round(amount * 100),
+        currency: 'INR',
+        name: 'Seed & Plate',
+        description: `Reservation ${reservationId}`,
+        order_id: orderId,
+        handler: function (response) {
+          // Razorpay provides payment_id/order_id/signature — the backend webhook is the source of truth.
+          // Redirect to the payment return screen (it polls the backend). Use our paymentIntentId as orderId param.
+          window.location.assign(`${ROUTES.paymentReturn(reservationId)}?orderId=${paymentIntentId}`);
+        },
+        modal: { ondismiss: function() { /* user dismissed */ } },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     },
     onError: (err) => toast.error(err.userMessage),
   });
