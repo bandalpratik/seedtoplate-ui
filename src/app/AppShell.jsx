@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { Sprout, Package } from 'lucide-react';
@@ -20,7 +21,15 @@ const CHROMELESS = [
 
 export default function AppShell() {
   const location = useLocation();
+  const scrollContainerRef = useRef(null);
   const showTabs = !CHROMELESS.some((pattern) => pattern.test(location.pathname));
+
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+      scrollContainerRef.current.scrollLeft = 0;
+    }
+  }, [location.pathname]);
 
   return (
     <div className="flex h-[100dvh] items-center justify-center bg-bone sm:bg-[radial-gradient(120%_120%_at_50%_0%,#FFFFFF_0%,#F2F1EC_55%,#E8E7E1_100%)] sm:p-8">
@@ -34,7 +43,7 @@ export default function AppShell() {
         )}
       >
         <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-white sm:rounded-[38px]">
-          <main className="no-scrollbar relative flex-1 overflow-y-auto overflow-x-hidden pb-28">
+          <main ref={scrollContainerRef} className="no-scrollbar relative flex-1 overflow-y-auto overflow-x-hidden pb-28">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={location.pathname}
